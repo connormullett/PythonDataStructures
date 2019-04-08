@@ -23,7 +23,6 @@ class Node:
             else:
                 node = node.next
 
-
     def insert_node(self, node, head):
         '''
         takes in two nodes and recursively
@@ -33,6 +32,21 @@ class Node:
             head.next = node
         else:
             self.insert_node(node, head.next)
+
+    def search_node(self, node, data):
+        '''
+        traverses the list looking for the data given
+        returns none if the data is never found
+        and returns the data of the node if found
+        '''
+        if not node.next:
+            return None
+        elif node.data == data:
+            print('found node')
+            return node.data
+        else:
+            print('recursing')
+            self.search_node(node.next, data)
 
 
 class LinkedList:
@@ -57,8 +71,7 @@ class LinkedList:
         out += ' ]'
         return out
 
-
-    def _create_node(self, data)->Node:
+    def _create_node(self, data) -> Node:
         '''
         aux method that creates
         a node object for insertion
@@ -90,12 +103,15 @@ class LinkedList:
             node.insert_node(node, linked_list.head)
         self.size += 1
 
-    def search(self):
+    def search(self, data):
         '''
         searches for value given in the list
         returns None if value is not found
         '''
-        pass
+        print('entered search ..')
+        return_data = self.head.search_node(self.head, data)
+        print('exited search ..')
+        return return_data
 
 
 if __name__ == '__main__':
@@ -109,3 +125,8 @@ if __name__ == '__main__':
     linked_list.delete(5)
 
     print(linked_list)
+
+    # deleted_data = linked_list.search(5)
+    # print(f'searching for 5 :: {deleted_data}')
+    data = linked_list.search(3)
+    print(f'searching for 3 :: {data}')
